@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import androidx.compose.animation.SizeTransform
 import androidx.compose.material3.surfaceColorAtElevation
+import com.example.flexipay.network.PurchaseNotifier
 
 
 data class SubscriptionService(
@@ -58,6 +59,19 @@ fun SubscriptionsScreen(
     var isSheetContentPurchased by remember { mutableStateOf(false) }
     val modalSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
+
+    // Initialize WebSocket connection
+    LaunchedEffect(Unit) {
+        // Replace with your ngrok HTTP URL
+        PurchaseNotifier.initialize("https://2769-2607-f470-6-4001-94fe-acb2-d40-4f46.ngrok-free.app")
+    }
+
+    // Cleanup when the composable is disposed
+    DisposableEffect(Unit) {
+        onDispose {
+            PurchaseNotifier.cleanup()
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -113,6 +127,8 @@ fun SubscriptionsScreen(
                 onPurchaseClick = { duration ->
                     isSheetContentPurchased = true
                     onPurchase(serviceToUpdate.id, duration)
+                    // Notify the Python server
+                    PurchaseNotifier.notifyPurchase(serviceToUpdate.name, duration)
                     println("Purchase requested for ${serviceToUpdate.name} - $duration")
                 }
             )
@@ -133,7 +149,7 @@ fun SubscriptionOptionCard(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp),
+            .heightIn(min = 80.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp).copy(alpha = 0.85f)
@@ -142,11 +158,14 @@ fun SubscriptionOptionCard(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Image(
                     painter = painterResource(id = iconRes),
                     contentDescription = "$providerName logo",
@@ -158,9 +177,14 @@ fun SubscriptionOptionCard(
                 Text(
                     text = providerName,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(1f),
+                    maxLines = 2,
+                    lineHeight = MaterialTheme.typography.titleMedium.lineHeight * 0.9f
                 )
             }
+
+            Spacer(modifier = Modifier.width(16.dp))
 
             AnimatedContent(
                 targetState = isPurchased,
@@ -171,10 +195,11 @@ fun SubscriptionOptionCard(
                 if (purchasedState) {
                     Box(
                         modifier = Modifier
+                            .widthIn(min = 100.dp)
                             .height(36.dp)
                             .clip(RoundedCornerShape(50))
                             .background(AppGreen.copy(alpha = 0.15f))
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                            .padding(horizontal = 16.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -187,9 +212,11 @@ fun SubscriptionOptionCard(
                 } else {
                     Button(
                         onClick = onClick,
-                        modifier = Modifier.height(36.dp),
+                        modifier = Modifier
+                            .widthIn(min = 100.dp)
+                            .height(36.dp),
                         shape = RoundedCornerShape(50),
-                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                        contentPadding = PaddingValues(horizontal = 16.dp)
                     ) {
                         Text("Buy Now", style = MaterialTheme.typography.labelLarge)
                     }
