@@ -16,26 +16,40 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+// Updated Dark Color Scheme using new palette
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
-    background = AppBlack, 
-    surface = Color(0xFF1C1B1F), // Material 3 default dark surface
-    surfaceVariant = Color(0xFF49454F), // Material 3 default dark surface variant
-    onSurface = AppWhite,
-    onSurfaceVariant = Color(0xFFCAC4D0) // Material 3 default dark on surface variant
+    primary = PrimaryBlueLight, // Lighter blue for dark theme primary
+    secondary = SecondaryTealLight, // Lighter teal for dark theme secondary
+    tertiary = AccentOrange,
+    background = NeutralGrayDark, 
+    surface = SurfaceDark, // Use specific dark surface
+    surfaceVariant = SurfaceVariantDark, // Use specific dark variant
+    outline = OutlineDark, // Add outline color
+    outlineVariant = Color(0xFF606060), // Slightly lighter outline variant
+    onPrimary = TextPrimaryDark, // Dark text on light primary button
+    onSecondary = TextPrimaryDark, // Dark text on light secondary button
+    onTertiary = TextPrimaryDark,
+    onBackground = TextPrimaryLight, // Light text on dark background
+    onSurface = TextPrimaryLight, // Light text on dark surface
+    onSurfaceVariant = TextSecondaryLight // Slightly dimmer light text for variants
 )
 
+// Updated Light Color Scheme using new palette
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-    background = AppWhite,
-    surface = Color(0xFFFFFBFE), // Material 3 default light surface
-    surfaceVariant = Color(0xFFE7E0EC), // Material 3 default light surface variant
-    onSurface = AppBlack,
-    onSurfaceVariant = Color(0xFF49454F) // Material 3 default light on surface variant
+    primary = PrimaryBlue,
+    secondary = SecondaryTeal,
+    tertiary = AccentOrange,
+    background = NeutralGray, // Use light gray background
+    surface = SurfaceLight, // Use white surface
+    surfaceVariant = NeutralGray, // Use light gray variant
+    outline = OutlineLight, // Add outline color
+    outlineVariant = Color(0xFFC0C0C0), // Slightly darker outline variant
+    onPrimary = TextPrimaryLight, // Light text on primary button
+    onSecondary = TextPrimaryDark, // Dark text on secondary button
+    onTertiary = TextPrimaryDark,
+    onBackground = TextPrimaryDark, // Dark text on light background
+    onSurface = TextPrimaryDark, // Dark text on light surface
+    onSurfaceVariant = TextSecondaryDark // Dimmer dark text for variants
 )
 
 @Composable

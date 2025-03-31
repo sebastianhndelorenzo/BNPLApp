@@ -19,7 +19,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -38,52 +37,160 @@ import kotlinx.coroutines.delay
 @Composable
 fun SubscriptionOptionsSheetContent(
     serviceName: String,
-    onOptionSelected: (String) -> Unit
+    isPurchased: Boolean,
+    onPurchaseClick: (String) -> Unit
 ) {
-    var optionSelected by remember { mutableStateOf(false) }
+    var selectedDurationIndex by remember { mutableStateOf(0) }
+    var selectedPaymentOptionIndex by remember { mutableStateOf(0) }
 
-    val priceDay = "$0.99"
-    val priceWeek = "$2.99"
-    val priceMonth = "$7.99"
-    val emailToCopy = "BNPLTestEmail1@gmail.com"
+    val durations = listOf(
+        Triple("One Month", "₹300", "One Month"),
+        Triple("One Week", "₹100", "One Week"),
+        Triple("One Day", "₹19", "One Day")
+    )
+
+    val monthlyPaymentOptions = listOf(
+        Pair("Buy Now, Pay Later", "₹0 upfront, then 4 payments of ₹75 weekly"),
+        Pair("Even Spread", "₹75 upfront, then 4 payments of ₹75 weekly (+ ₹20 cashback if paid in full)")
+    )
+
+    val weeklyPaymentOptions = listOf(
+        Pair("Buy Now, Pay Later", "₹0 upfront, then 4 payments of ₹25 weekly"),
+        Pair("Even Spread", "₹25 upfront, then 4 payments of ₹18 weekly (+ ₹7 cashback if paid in full)")
+    )
 
     Column(
         modifier = Modifier
-            .padding(16.dp)
-            .navigationBarsPadding()
+            .fillMaxWidth()
+            .fillMaxHeight(0.75f)
+            .padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 32.dp)
+            .navigationBarsPadding(),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = if (optionSelected) "Email for Login" else "Choose duration for $serviceName",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+        Column {
+            Text(
+                text = if (isPurchased) "Email for Login" else "Choose duration for $serviceName",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
 
-        AnimatedContent(
-            targetState = optionSelected,
-            transitionSpec = {
-                if (targetState) {
-                    slideInHorizontally { width -> width } + fadeIn() with
-                            slideOutHorizontally { width -> -width } + fadeOut()
+            AnimatedContent(
+                targetState = isPurchased,
+                transitionSpec = {
+                    if (targetState) {
+                        slideInHorizontally { width -> width } + fadeIn() with
+                                slideOutHorizontally { width -> -width } + fadeOut()
+                    } else {
+                        slideInHorizontally { width -> -width } + fadeIn() with
+                                slideOutHorizontally { width -> width } + fadeOut()
+                    }
+                },
+                label = "SheetContentAnimation"
+            ) { showEmailView ->
+                if (showEmailView) {
+                    EmailDisplayView(emailToCopy = "BNPLTestEmail1@gmail.com")
                 } else {
-                    slideInHorizontally { width -> -width } + fadeIn() with
-                            slideOutHorizontally { width -> width } + fadeOut()
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(48.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                                .padding(4.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            durations.forEachIndexed { index, (label, price, _) ->
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight()
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(
+                                            if (selectedDurationIndex == index)
+                                                MaterialTheme.colorScheme.primaryContainer
+                                            else
+                                                MaterialTheme.colorScheme.surface.copy(alpha = 0f)
+                                        )
+                                        .clickable { 
+                                            selectedDurationIndex = index
+                                            selectedPaymentOptionIndex = 0 
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.Center
+                                    ) {
+                                        Text(
+                                            text = label,
+                                            style = MaterialTheme.typography.labelMedium,
+                                            color = if (selectedDurationIndex == index)
+                                                MaterialTheme.colorScheme.onPrimaryContainer
+                                            else
+                                                MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = price,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = if (selectedDurationIndex == index)
+                                                MaterialTheme.colorScheme.onPrimaryContainer
+                                            else
+                                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
+                        AnimatedVisibility(
+                            visible = selectedDurationIndex == 0 || selectedDurationIndex == 1,
+                            enter = fadeIn() + expandVertically(),
+                            exit = fadeOut() + shrinkVertically()
+                        ) {
+                            Column(modifier = Modifier.padding(top = 24.dp)) {
+                                Text(
+                                    text = "Payment Plan:",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Medium,
+                                    modifier = Modifier.padding(bottom = 8.dp)
+                                )
+                                val currentPaymentOptions = if (selectedDurationIndex == 0) {
+                                    monthlyPaymentOptions
+                                } else {
+                                    weeklyPaymentOptions
+                                }
+                                
+                                currentPaymentOptions.forEachIndexed { index, (title, subtitle) ->
+                                    PaymentOptionItem(
+                                        title = title,
+                                        subtitle = subtitle,
+                                        isSelected = selectedPaymentOptionIndex == index,
+                                        onClick = { selectedPaymentOptionIndex = index }
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
-        ) { isEmailViewVisible ->
-            if (isEmailViewVisible) {
-                EmailDisplayView(emailToCopy = emailToCopy)
-            } else {
-                OptionsSelectionView(
-                    serviceName = serviceName,
-                    priceDay = priceDay,
-                    priceWeek = priceWeek,
-                    priceMonth = priceMonth,
-                    onSelect = { duration ->
-                        println("Selected $duration for $serviceName")
-                        optionSelected = true
-                        onOptionSelected(duration)
-                    }
+        }
+
+        if (!isPurchased) {
+             Spacer(modifier = Modifier.weight(1f))
+             Button(
+                onClick = {
+                    onPurchaseClick(durations[selectedDurationIndex].third)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = "Purchase ${durations[selectedDurationIndex].first} for ${durations[selectedDurationIndex].second}",
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
@@ -98,7 +205,7 @@ fun OptionsSelectionView(
     priceMonth: String,
     onSelect: (String) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         OptionButton(text = "1 Day Access", price = priceDay) { onSelect("1 Day") }
         PopularOption(
             text = "1 Week Access",
@@ -119,10 +226,12 @@ fun OptionButton(
     OutlinedButton(
         onClick = onClick,
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(12.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp)
     ) {
-        Text(text, modifier = Modifier.weight(1f))
-        Text(price, fontWeight = FontWeight.SemiBold)
+        Text(text, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(price, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodyMedium)
     }
 }
 
@@ -136,18 +245,56 @@ fun PopularOption(
         OutlinedButton(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
-            border = ButtonDefaults.outlinedButtonBorder.copy(brush = SolidColor(AppBlue))
+            shape = RoundedCornerShape(12.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
+            border = ButtonDefaults.outlinedButtonBorder.copy(brush = SolidColor(MaterialTheme.colorScheme.primary))
         ) {
-            Text(text, modifier = Modifier.weight(1f))
-            Text(price, fontWeight = FontWeight.SemiBold)
+            Text(text, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(price, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodyMedium)
         }
         Text(
             "Most Popular",
-            color = AppBlue,
+            color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.labelSmall,
-            modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            modifier = Modifier.padding(start = 8.dp, top = 4.dp)
         )
+    }
+}
+
+@Composable
+fun PaymentOptionItem(
+    title: String,
+    subtitle: String,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = isSelected,
+            onClick = onClick,
+            colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Column {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
 
@@ -168,65 +315,58 @@ fun EmailDisplayView(emailToCopy: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp).copy(alpha = 0.85f))
+            .background(AppBlue.copy(alpha = 0.03f))
+            .clickable(enabled = !showCopiedFeedback) { 
+                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                 val clip = ClipData.newPlainText("Email Address", emailToCopy)
+                 clipboard.setPrimaryClip(clip)
+                 showCopiedFeedback = true
+            }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = "Use this email to sign in:",
-                style = MaterialTheme.typography.bodySmall,
+                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.pointerInput(Unit) { // Consume long press
-                    detectTapGestures(onLongPress = { })
-                }
             )
             Text(
                 text = emailToCopy,
+                style = MaterialTheme.typography.bodyMedium,
                 fontFamily = FontFamily.Monospace,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.pointerInput(Unit) { // Consume long press
-                    detectTapGestures(onLongPress = { })
-                }
             )
         }
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(12.dp))
 
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(50))
-                .clickable {
-                    if (!showCopiedFeedback) {
-                        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip = ClipData.newPlainText("Email Address", emailToCopy)
-                        clipboard.setPrimaryClip(clip)
-                        showCopiedFeedback = true
-                    }
-                }
-                .padding(horizontal = 8.dp, vertical = 4.dp),
+                .padding(horizontal = 10.dp, vertical = 6.dp),
             contentAlignment = Alignment.Center
         ) {
             AnimatedContent(
                 targetState = showCopiedFeedback,
                 transitionSpec = {
                     fadeIn(animationSpec = tween(200)) with fadeOut(animationSpec = tween(200))
-                }
-            ) {
-                if (it) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Filled.Check, contentDescription = "Copied", tint = AppGreen)
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text("Copied", color = AppGreen, style = MaterialTheme.typography.labelLarge)
+                },
+                label = "CopyFeedbackAnimation"
+            ) { isCopied ->
+                if (isCopied) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Icon(Icons.Filled.Check, contentDescription = "Copied", tint = AppGreen, modifier = Modifier.size(18.dp))
+                        Text("Copied", color = AppGreen, style = MaterialTheme.typography.labelMedium)
                     }
                 } else {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Email", tint = AppBlue)
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text("Copy", color = AppBlue, style = MaterialTheme.typography.labelLarge)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Email", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(18.dp))
+                        Text("Copy", color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.labelMedium)
                     }
                 }
             }
@@ -238,7 +378,7 @@ fun EmailDisplayView(emailToCopy: String) {
 @Composable
 fun SubscriptionOptionsSheetContent_OptionsPreview() {
     FlexiPayTheme {
-        SubscriptionOptionsSheetContent(serviceName = "Sample Service", onOptionSelected = {})
+        SubscriptionOptionsSheetContent(serviceName = "Sample Service", isPurchased = false, onPurchaseClick = {})
     }
 }
 

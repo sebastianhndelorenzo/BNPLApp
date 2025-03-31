@@ -23,6 +23,7 @@ import com.example.flexipay.screens.SettingsScreen
 import com.example.flexipay.screens.SubscriptionsScreen // Keep name, represents Providers now
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.foundation.layout.RowScope
 
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     object Providers : Screen("providers", "Providers", Icons.Filled.List)
@@ -47,7 +48,12 @@ fun MainAppScreen(navController: NavHostController = rememberNavController()) {
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController = navController)
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+            ) {
+                BottomNavigationBarItems(navController = navController)
+            }
         }
     ) { innerPadding ->
         NavHost(
@@ -68,28 +74,31 @@ fun MainAppScreen(navController: NavHostController = rememberNavController()) {
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController) {
-    NavigationBar {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
+fun RowScope.BottomNavigationBarItems(navController: NavHostController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
-        bottomNavItems.forEach { screen ->
-            NavigationBarItem(
-                icon = { Icon(screen.icon, contentDescription = screen.label) },
-                label = { Text(screen.label) },
-                selected = currentRoute == screen.route,
-                onClick = {
-                    if (currentRoute != screen.route) {
-                        navController.navigate(screen.route) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
+    bottomNavItems.forEach { screen ->
+        NavigationBarItem(
+            icon = { Icon(screen.icon, contentDescription = screen.label) },
+            label = { Text(screen.label, style = MaterialTheme.typography.labelSmall) },
+            selected = currentRoute == screen.route,
+            onClick = {
+                if (currentRoute != screen.route) {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
                     }
                 }
+            },
+            colors = NavigationBarItemDefaults.colors(
+                selectedIconColor = MaterialTheme.colorScheme.primary,
+                selectedTextColor = MaterialTheme.colorScheme.primary,
+                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                indicatorColor = MaterialTheme.colorScheme.primaryContainer
             )
-        }
+        )
     }
 } 

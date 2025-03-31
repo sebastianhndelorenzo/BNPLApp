@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.* // Import all filled icons
 import androidx.compose.material3.*
@@ -31,6 +32,7 @@ import com.example.flexipay.ui.theme.*
 import kotlinx.coroutines.launch
 import java.util.*
 import androidx.compose.animation.SizeTransform
+import androidx.compose.material3.surfaceColorAtElevation
 
 
 data class SubscriptionService(
@@ -53,29 +55,26 @@ fun SubscriptionsScreen(
     onPurchase: (serviceId: String, duration: String) -> Unit
 ) {
     var selectedService by remember { mutableStateOf<SubscriptionService?>(null) }
+    var isSheetContentPurchased by remember { mutableStateOf(false) }
     val modalSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.linearGradient(
-                    colors = listOf(AppGradientStart.copy(alpha = 0.8f), AppGradientEnd.copy(alpha = 0.6f))
-                )
-            )
+            .background(MaterialTheme.colorScheme.background)
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp)
+            contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 32.dp, bottom = 96.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
                 Text(
                     text = "Providers",
-                    style = MaterialTheme.typography.headlineLarge,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
             }
@@ -83,10 +82,13 @@ fun SubscriptionsScreen(
             items(sampleSubscriptions) { service ->
                 val currentPurchase = purchasedDurations[service.id]
                 SubscriptionOptionCard(
-                    service = service,
+                    providerName = service.name,
+                    iconRes = service.iconResId,
+                    isPurchased = currentPurchase != null,
                     purchasedDuration = currentPurchase,
                     onClick = {
                         selectedService = service
+                        isSheetContentPurchased = (currentPurchase != null)
                         scope.launch { modalSheetState.show() }
                     }
                 )
@@ -107,11 +109,11 @@ fun SubscriptionsScreen(
         ) {
             SubscriptionOptionsSheetContent(
                 serviceName = serviceToUpdate.name,
-                onOptionSelected = { duration ->
+                isPurchased = isSheetContentPurchased,
+                onPurchaseClick = { duration ->
+                    isSheetContentPurchased = true
                     onPurchase(serviceToUpdate.id, duration)
                     println("Purchase requested for ${serviceToUpdate.name} - $duration")
-                    // Optionally hide sheet after selection
-                    // scope.launch { modalSheetState.hide(); selectedService = null }
                 }
             )
         }
@@ -121,79 +123,76 @@ fun SubscriptionsScreen(
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun SubscriptionOptionCard(
-    service: SubscriptionService,
+    providerName: String,
+    iconRes: Int,
+    isPurchased: Boolean,
     purchasedDuration: String?,
     onClick: () -> Unit
 ) {
     Card(
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .height(80.dp),
         shape = RoundedCornerShape(20.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.8f) // Slightly more opaque
-        ),
-        border = BorderStroke(1.dp, service.themeColor.copy(alpha = 0.5f))
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp).copy(alpha = 0.85f)
+        )
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Image(
-                painter = painterResource(id = service.iconResId),
-                contentDescription = service.name,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(10.dp))
-            )
-
-            Column(modifier = Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(id = iconRes),
+                    contentDescription = "$providerName logo",
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                )
+                Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = service.name,
+                    text = providerName,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    fontWeight = FontWeight.Medium
                 )
             }
 
             AnimatedContent(
-                targetState = purchasedDuration != null,
+                targetState = isPurchased,
                 transitionSpec = {
-                    (fadeIn(animationSpec = tween(500)) +
-                        scaleIn(initialScale = 0.92f, animationSpec = tween(500)))
-                    .togetherWith(fadeOut(animationSpec = tween(300)))
-                    .using(SizeTransform(clip = false))
-                },
-                label = "PurchaseIndicatorAnimation"
-            ) { isPurchased ->
-                if (isPurchased) {
-                    val remainingText = when (purchasedDuration) {
-                        "1 Day" -> "1 Day Remaining"
-                        "1 Week" -> "7 Days Remaining"
-                        "1 Month" -> "30 Days Remaining"
-                        else -> "Purchased"
+                    fadeIn(animationSpec = tween(200)) with fadeOut(animationSpec = tween(200))
+                }
+            ) { purchasedState ->
+                if (purchasedState) {
+                    Box(
+                        modifier = Modifier
+                            .height(36.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(AppGreen.copy(alpha = 0.15f))
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = purchasedDuration?.let { "$it Left" } ?: "Active",
+                            color = AppGreen,
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Medium
+                        )
                     }
-                    Text(
-                        text = remainingText,
-                        color = AppGreen, // Use AppGreen from theme
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .background(AppGreen.copy(alpha = 0.1f), RoundedCornerShape(50))
-                            .padding(horizontal = 12.dp, vertical = 6.dp)
-                    )
                 } else {
-                    Text(
-                        text = "Buy Now",
-                        color = service.themeColor,
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .background(service.themeColor.copy(alpha = 0.1f), RoundedCornerShape(50))
-                            .padding(horizontal = 12.dp, vertical = 6.dp)
-                    )
+                    Button(
+                        onClick = onClick,
+                        modifier = Modifier.height(36.dp),
+                        shape = RoundedCornerShape(50),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                    ) {
+                        Text("Buy Now", style = MaterialTheme.typography.labelLarge)
+                    }
                 }
             }
         }
@@ -204,7 +203,7 @@ fun SubscriptionOptionCard(
 @Composable
 fun SubscriptionOptionCardPreview_NotPurchased() {
     FlexiPayTheme {
-        SubscriptionOptionCard(service = sampleSubscriptions[0], purchasedDuration = null, onClick = {})
+        SubscriptionOptionCard(providerName = "JioHotstar", iconRes = R.drawable.jiohotstar, isPurchased = false, purchasedDuration = null, onClick = {})
     }
 }
 
@@ -212,7 +211,7 @@ fun SubscriptionOptionCardPreview_NotPurchased() {
 @Composable
 fun SubscriptionOptionCardPreview_Purchased() {
     FlexiPayTheme {
-        SubscriptionOptionCard(service = sampleSubscriptions[1], purchasedDuration = "1 Week", onClick = {})
+        SubscriptionOptionCard(providerName = "JioHotstar", iconRes = R.drawable.jiohotstar, isPurchased = true, purchasedDuration = "1 Week", onClick = {})
     }
 }
 
