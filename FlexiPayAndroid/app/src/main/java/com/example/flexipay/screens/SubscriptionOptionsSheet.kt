@@ -46,7 +46,7 @@ fun SubscriptionOptionsSheetContent(
     val durations = listOf(
         Triple("One Month", "₹300", "One Month"),
         Triple("One Week", "₹100", "One Week"),
-        Triple("One Day", "₹19", "One Day")
+        Triple("One Day", "₹20", "One Day")
     )
 
     val monthlyPaymentOptions = listOf(
@@ -57,6 +57,11 @@ fun SubscriptionOptionsSheetContent(
     val weeklyPaymentOptions = listOf(
         Pair("Buy Now, Pay Later", "₹0 upfront, then 4 payments of ₹25 weekly"),
         Pair("Even Spread", "₹25 upfront, then 4 payments of ₹18 weekly (+ ₹7 cashback if paid in full)")
+    )
+
+    val dailyPaymentOptions = listOf(
+        Pair("Buy Now, Pay Later", "₹0 upfront, then 4 payments of ₹5 weekly"),
+        Pair("Even Spread", "₹5 upfront, then 4 payments of ₹4 weekly (+ ₹2 cashback if paid in full)")
     )
 
     Column(
@@ -145,7 +150,7 @@ fun SubscriptionOptionsSheetContent(
                         }
 
                         AnimatedVisibility(
-                            visible = selectedDurationIndex == 0 || selectedDurationIndex == 1,
+                            visible = true,
                             enter = fadeIn() + expandVertically(),
                             exit = fadeOut() + shrinkVertically()
                         ) {
@@ -156,10 +161,10 @@ fun SubscriptionOptionsSheetContent(
                                     fontWeight = FontWeight.Medium,
                                     modifier = Modifier.padding(bottom = 8.dp)
                                 )
-                                val currentPaymentOptions = if (selectedDurationIndex == 0) {
-                                    monthlyPaymentOptions
-                                } else {
-                                    weeklyPaymentOptions
+                                val currentPaymentOptions = when (selectedDurationIndex) {
+                                    0 -> monthlyPaymentOptions
+                                    1 -> weeklyPaymentOptions
+                                    else -> dailyPaymentOptions
                                 }
                                 
                                 currentPaymentOptions.forEachIndexed { index, (title, subtitle) ->
