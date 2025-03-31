@@ -1,0 +1,31 @@
+# Android build files
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Build directories
+*/build/
+.gradle/
+
+# Local configuration files (sdk path, etc.)
+local.properties
+*.iml
+
+# Log files
+*.log
+
+# Heap dumps, memory snapshots
+*.hprof
+*.prof
+
+# Android Studio / IntelliJ IDEA files
+.idea/
+*.iws
+
+# macOS specific files
+.DS_Store
+
+# Temporary backup folders (if any)
+temp_*/ 

@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/drawable_jiohotstar.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/drawable/jiohotstar.png"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/drawable_amazonprimevideo.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/drawable/amazonprimevideo.png"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-51:/xml_backup_rules.xml.flat",
+        "source": "com.example.flexipay.app-main-53:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/drawable_sonyliv.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/drawable/sonyliv.png"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-51:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-53:/drawable/ic_launcher_foreground.xml"
+    }
+]
