@@ -14,10 +14,14 @@ drawable amazonprimevideo
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable jiohotstar
+drawable logo_corrected
+drawable logo_previous
 drawable sonyliv
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 string app_name
 style Theme.FlexiPay
+style Theme.FlexiPay.Splash
 xml backup_rules
 xml data_extraction_rules

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.flexipay.app-mergeDebugResources-49:/values-fr-rCA/values-fr-rCA.xml",
+            "outputFile": "com.example.flexipay.app-mergeDebugResources-50:/values-fr-rCA/values-fr-rCA.xml",
             "map": [
                 {
                     "source": "/Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/20f042513892beaa3779d1b0638d0229/transformed/material3-release/res/values-fr-rCA/values-fr-rCA.xml",

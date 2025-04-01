@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.flexipay.app-mergeDebugResources-49:/values-el/values-el.xml",
+            "outputFile": "com.example.flexipay.app-mergeDebugResources-50:/values-el/values-el.xml",
             "map": [
                 {
                     "source": "/Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/35837d07de13fa1ccfd6e5771a8c6660/transformed/foundation-release/res/values-el/values-el.xml",

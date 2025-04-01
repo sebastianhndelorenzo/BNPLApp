@@ -1,38 +1,174 @@
 [
     {
-        "merged": "com.example.flexipay.app-debug-51:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.flexipay.app-main-53:/drawable/ic_launcher_background.xml"
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_amazonprimevideo.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/amazonprimevideo.png"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/drawable_jiohotstar.png.flat",
-        "source": "com.example.flexipay.app-main-53:/drawable/jiohotstar.png"
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.flexipay.app-main-53:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.flexipay.app-main-53:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.flexipay.app-main-53:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/xml_backup_rules.xml.flat",
-        "source": "com.example.flexipay.app-main-53:/xml/backup_rules.xml"
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/drawable_amazonprimevideo.png.flat",
-        "source": "com.example.flexipay.app-main-53:/drawable/amazonprimevideo.png"
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.flexipay.app-main-53:/xml/data_extraction_rules.xml"
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-hdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.flexipay.app-debug-51:/drawable_sonyliv.png.flat",
-        "source": "com.example.flexipay.app-main-53:/drawable/sonyliv.png"
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_splash_logo.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/splash_logo.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable-mdpi_logo_previous.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable-mdpi/logo_previous.png"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_logo_corrected.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/logo_corrected.png"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_logo_previous.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/logo_previous.png"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/xml_backup_rules.xml.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_sonyliv.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/sonyliv.png"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/drawable_jiohotstar.png.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/drawable/jiohotstar.png"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-debug-52:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/sebastiandelorenzo/.gradle/daemon/8.10/com.example.flexipay.app-main-54:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.flexipay.app-debug-52:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.flexipay.app-main-54:/mipmap-xxxhdpi/ic_launcher_round.webp"
     }
 ]

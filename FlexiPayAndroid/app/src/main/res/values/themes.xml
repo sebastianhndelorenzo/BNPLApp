@@ -2,6 +2,15 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.FlexiPay" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item> <!-- Or your primary dark color -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+    <!-- Splash Screen theme -->
+    <style name="Theme.FlexiPay.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_previous</item>
+        <item name="postSplashScreenTheme">@style/Theme.FlexiPay</item>
     </style>
 </resources> 

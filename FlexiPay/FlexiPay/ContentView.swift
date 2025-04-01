@@ -12,39 +12,324 @@ import SwiftUI
 // let themeBlue = Color.blue
 // If using Asset Catalog, these lines aren't needed.
 
-// Main View hosting the TabView, now with Splash Screen logic
+// Main View hosting the TabView or Onboarding
 struct ContentView: View {
-    // Use AppStorage to persist first launch flag across app restarts
-    @AppStorage("hasLaunchedBefore") private var hasLaunchedBefore = false
-    // State to control splash screen visibility within the current session
-    @State private var showingSplash = true
+    // Use AppStorage to persist onboarding completion across app restarts
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    // State for phone number input
+    @State private var phoneNumber: String = ""
 
     var body: some View {
-        // Conditionally show Splash Screen or Main TabView
-        if showingSplash && !hasLaunchedBefore {
-            // --- Splash Screen View ---
-            ZStack {
-                Color.white.edgesIgnoringSafeArea(.all) // White background
-                
-                // Make sure you have an image named "AppLogo" in your Assets.xcassets
-                Image("AppLogo") 
-                    .resizable() // Allows the image to be resized
-                    .scaledToFit() // Scales the image to fit the frame while maintaining aspect ratio
-                    .frame(width: 150, height: 150) // Adjust size as needed
-            }
-            .onAppear { 
-                // Start a timer when the splash screen appears
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { // 2-second delay
-                    // Use animation for a smoother transition out
-                    withAnimation {
-                        self.showingSplash = false // Hide splash for this session
-                    }
-                    // Mark that the app has launched before
-                    self.hasLaunchedBefore = true 
-                }
-            }
+        // Conditionally show Onboarding or Main TabView
+        if !hasCompletedOnboarding {
+            OnboardingView(phoneNumber: $phoneNumber, hasCompletedOnboarding: $hasCompletedOnboarding)
+                .transition(.move(edge: .leading)) // Add transition
         } else {
-            // --- Main TabView (Existing Code) ---
+            MainTabView()
+                .transition(.move(edge: .trailing)) // Add transition
+        }
+    }
+}
+
+// --- Country Data Structure ---
+struct Country: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let flag: String
+    let code: String // Phone country code (e.g., "+91")
+}
+
+// Function to get the sorted country list
+func getSortedCountries() -> [Country] {
+    // More comprehensive list (expand as needed)
+    let allCountries = [
+        Country(name: "Afghanistan", flag: "🇦🇫", code: "+93"),
+        Country(name: "Albania", flag: "🇦🇱", code: "+355"),
+        Country(name: "Algeria", flag: "🇩🇿", code: "+213"),
+        Country(name: "Andorra", flag: "🇦🇩", code: "+376"),
+        Country(name: "Angola", flag: "🇦🇴", code: "+244"),
+        Country(name: "Argentina", flag: "🇦🇷", code: "+54"),
+        Country(name: "Armenia", flag: "🇦🇲", code: "+374"),
+        Country(name: "Australia", flag: "🇦🇺", code: "+61"),
+        Country(name: "Austria", flag: "🇦🇹", code: "+43"),
+        Country(name: "Bahamas", flag: "🇧🇸", code: "+1-242"),
+        Country(name: "Bahrain", flag: "🇧🇭", code: "+973"),
+        Country(name: "Bangladesh", flag: "🇧🇩", code: "+880"),
+        Country(name: "Belgium", flag: "🇧🇪", code: "+32"),
+        Country(name: "Brazil", flag: "🇧🇷", code: "+55"),
+        Country(name: "Canada", flag: "🇨🇦", code: "+1"),
+        Country(name: "Chile", flag: "🇨🇱", code: "+56"),
+        Country(name: "China", flag: "🇨🇳", code: "+86"),
+        Country(name: "Colombia", flag: "🇨🇴", code: "+57"),
+        Country(name: "Denmark", flag: "🇩🇰", code: "+45"),
+        Country(name: "Egypt", flag: "🇪🇬", code = "+20"),
+        Country(name: "Finland", flag: "🇫🇮", code = "+358"),
+        Country(name: "France", flag: "🇫🇷", code = "+33"),
+        Country(name: "Germany", flag: "🇩🇪", code = "+49"),
+        Country(name: "Greece", flag: "🇬🇷", code = "+30"),
+        Country(name: "Hong Kong", flag: "🇭🇰", code = "+852"),
+        Country(name: "Hungary", flag: "🇭🇺", code = "+36"),
+        Country(name: "Iceland", flag: "🇮🇸", code = "+354"),
+        Country(name: "India", flag: "🇮🇳", code = "+91"),
+        Country(name: "Indonesia", flag: "🇮🇩", code = "+62"),
+        Country(name: "Iran", flag: "🇮🇷", code = "+98"),
+        Country(name: "Iraq", flag: "🇮🇶", code = "+964"),
+        Country(name: "Ireland", flag: "🇮🇪", code = "+353"),
+        Country(name: "Israel", flag: "🇮🇱", code = "+972"),
+        Country(name: "Italy", flag: "🇮🇹", code = "+39"),
+        Country(name: "Jamaica", flag: "🇯🇲", code = "+1-876"),
+        Country(name: "Japan", flag: "🇯🇵", code = "+81"),
+        Country(name: "Kenya", flag: "🇰🇪", code = "+254"),
+        Country(name: "Kuwait", flag: "🇰🇼", code = "+965"),
+        Country(name: "Malaysia", flag: "🇲🇾", code = "+60"),
+        Country(name: "Mexico", flag: "🇲🇽", code = "+52"),
+        Country(name: "Morocco", flag: "🇲🇦", code = "+212"),
+        Country(name: "Nepal", flag: "🇳🇵", code = "+977"),
+        Country(name: "Netherlands", flag: "🇳🇱", code = "+31"),
+        Country(name: "New Zealand", flag: "🇳🇿", code = "+64"),
+        Country(name: "Nigeria", flag: "🇳🇬", code = "+234"),
+        Country(name: "Norway", flag: "🇳🇴", code = "+47"),
+        Country(name: "Oman", flag = "🇴🇲", code = "+968"),
+        Country(name: "Pakistan", flag: "🇵🇰", code = "+92"),
+        Country(name: "Peru", flag: "🇵🇪", code = "+51"),
+        Country(name: "Philippines", flag: "🇵🇭", code = "+63"),
+        Country(name: "Poland", flag: "🇵🇱", code = "+48"),
+        Country(name: "Portugal", flag: "🇵🇹", code = "+351"),
+        Country(name: "Qatar", flag = "🇶🇦", code = "+974"),
+        Country(name: "Romania", flag: "🇷🇴", code = "+40"),
+        Country(name: "Russia", flag = "🇷🇺", code = "+7"),
+        Country(name: "Saudi Arabia", flag = "🇸🇦", code = "+966"),
+        Country(name: "Singapore", flag = "🇸🇬", code = "+65"),
+        Country(name: "South Africa", flag = "🇿🇦", code = "+27"),
+        Country(name: "South Korea", flag = "🇰🇷", code = "+82"),
+        Country(name: "Spain", flag: "🇪🇸", code = "+34"),
+        Country(name = "Sri Lanka", flag = "🇱🇰", code = "+94"),
+        Country(name: "Sweden", flag = "🇸🇪", code = "+46"),
+        Country(name: "Switzerland", flag = "🇨🇭", code = "+41"),
+        Country(name = "Taiwan", flag = "🇹🇼", code = "+886"),
+        Country(name: "Thailand", flag = "🇹🇭", code = "+66"),
+        Country(name = "Turkey", flag = "🇹🇷", code = "+90"),
+        Country(name: "Uganda", flag = "🇺🇬", code = "+256"),
+        Country(name: "Ukraine", flag = "🇺🇦", code = "+380"),
+        Country(name = "United Arab Emirates", flag = "🇦🇪", code = "+971"),
+        Country(name: "United Kingdom", flag = "🇬🇧", code = "+44"),
+        Country(name: "United States", flag = "🇺🇸", code = "+1"),
+        Country(name: "Uruguay", flag = "🇺🇾", code = "+598"),
+        Country(name = "Vietnam", flag = "🇻🇳", code = "+84"),
+        Country(name: "Yemen", flag = "🇾🇪", code = "+967"),
+        Country(name: "Zambia", flag = "🇿🇲", code = "+260"),
+        Country(name = "Zimbabwe", flag = "🇿🇼", code = "+263")
+    ]
+    
+    // --- Sorting Logic ---
+    let india = allCountries.first { $0.code == "+91" }
+    let usa = allCountries.first { $0.name == "United States" && $0.code == "+1" }
+    
+    let sortedRest = allCountries
+        .filter { $0 != india && $0 != usa }
+        .sorted { $0.name < $1.name }
+        
+    var finalList = [Country]()
+    if let india = india { finalList.append(india) }
+    if let usa = usa { finalList.append(usa) }
+    finalList.append(contentsOf: sortedRest)
+    
+    return finalList
+}
+
+// --- Helper formatting functions ---
+private func formatPhoneNumber(_ digits: String, countryCode: String) -> String {
+    switch countryCode {
+    case "+91": return formatIndianNumber(digits)
+    case "+1": return formatNorthAmericanNumber(digits)
+    case "+44": return formatUKNumber(digits)
+    // Add other country formats here
+    default: return digits // Default: no formatting
+    }
+}
+
+private func formatIndianNumber(_ digits: String) -> String {
+    // Format: XXX XXX XXXX (up to 10 digits)
+    let trimmed = String(digits.prefix(10))
+    var result = ""
+    let count = trimmed.count
+
+    if count > 0 { result += "\(trimmed.prefix(min(count, 3)))" }
+    if count > 3 { result += " \(trimmed.dropFirst(3).prefix(min(count-3, 3)))" }
+    if count > 6 { result += " \(trimmed.dropFirst(6).prefix(min(count-6, 4)))" }
+    
+    return result
+}
+
+private func formatNorthAmericanNumber(_ digits: String) -> String {
+    // Format: (XXX) XXX-XXXX (up to 10 digits)
+    let trimmed = String(digits.prefix(10))
+    var result = ""
+    let count = trimmed.count
+
+    if count > 0 { result += "(\(trimmed.prefix(min(count, 3)))" }
+    if count > 3 { result += ") \(trimmed.dropFirst(3).prefix(min(count-3, 3)))" }
+    if count > 6 { result += "-\(trimmed.dropFirst(6).prefix(min(count-6, 4)))" }
+    
+    return result
+}
+
+private func formatUKNumber(_ digits: String) -> String {
+    // Format: XXXXX XXXXXX (up to 11 digits)
+    // Simple format for now: XXXXX XXXXX (10 digits after code)
+    let trimmed = String(digits.prefix(10))
+    return switch trimmed.count {
+    case 1...5: trimmed
+    case 6...10: "\(trimmed.prefix(5)) \(trimmed.suffix(trimmed.count - 5))"
+    default: trimmed
+    }
+}
+
+// --- Onboarding View ---
+struct OnboardingView: View {
+    @Binding var phoneNumber: String // Stores raw digits
+    @Binding var hasCompletedOnboarding: Bool
+    
+    // Get the sorted country list
+    let countries = getSortedCountries()
+    // State for country selection - default to first item (India)
+    @State private var selectedCountry: Country
+    // State for the text displayed in the TextField
+    @State private var displayedPhoneNumber: String = ""
+    
+    // Initializer to set default selected country
+    init(phoneNumber: Binding<String>, hasCompletedOnboarding: Binding<Bool>) {
+        self._phoneNumber = phoneNumber
+        self._hasCompletedOnboarding = hasCompletedOnboarding
+        // Set the initial state for selectedCountry using the sorted list
+        self._selectedCountry = State(initialValue: getSortedCountries().first!)
+    }
+    
+    var isPhoneNumberValid: Bool {
+        // Validation should be based on raw digits
+        !phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+
+            Image("AppLogo") // Reuse the logo
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+                .padding(.bottom, 30)
+
+            Text("Welcome to FlexiPay")
+                .font(.title)
+                .fontWeight(.bold)
+
+            Text("Please enter your phone number to get started.")
+                .font(.headline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            // --- Phone Input Row ---
+            HStack(spacing: 0) {
+                // Country Selection Menu
+                Menu {
+                    // Use the instance variable 'countries' here
+                    ForEach(countries) { country in
+                        Button {
+                            selectedCountry = country
+                        } label: {
+                            Text("\(country.flag) \(country.name) (\(country.code))")
+                        }
+                    }
+                } label: {
+                    // Label showing selected country flag and code
+                    HStack {
+                        Text(selectedCountry.flag)
+                        Text(selectedCountry.code)
+                            .font(.body)
+                            .foregroundColor(.primary)
+                    }
+                    .padding(.horizontal, 12)
+                    .frame(height: 50) // Match approximate TextField height
+                    .background(Color(.systemGray6))
+                }
+                .cornerRadius(10, corners: [.topLeft, .bottomLeft]) // Round left corners
+                
+                // Phone Number TextField - Bound to displayedPhoneNumber
+                TextField("Phone Number", text: $displayedPhoneNumber)
+                    .keyboardType(.phonePad)
+                    .padding(.leading, 10) // Add padding between country code and number
+                    .frame(height: 50)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10, corners: [.topRight, .bottomRight]) // Round right corners
+                    .textContentType(.telephoneNumber) // Helps with autofill
+                    .onChange(of: displayedPhoneNumber) { newValue in
+                        // 1. Filter input to get raw digits
+                        let rawDigits = newValue.filter { $0.isNumber }
+                        // 2. Update the raw digit state
+                        phoneNumber = rawDigits
+                        // 3. Format the raw digits according to the selected country
+                        let formatted = formatPhoneNumber(rawDigits, countryCode: selectedCountry.code)
+                        // 4. Update the displayed text ONLY if it's different
+                        //    (prevents potential infinite loops and helps cursor positioning)
+                        if newValue != formatted {
+                            displayedPhoneNumber = formatted
+                        }
+                    }
+                    .onChange(of: selectedCountry) { newCountry in
+                        // Re-format the existing raw digits when country changes
+                        let formatted = formatPhoneNumber(phoneNumber, countryCode: newCountry.code)
+                        displayedPhoneNumber = formatted
+                    }
+            }
+            .padding(.horizontal, 40)
+
+            Spacer()
+
+            Button {
+                // Use the raw phoneNumber state for logic
+                print("Phone number entered: \(selectedCountry.code) \(phoneNumber)")
+                withAnimation {
+                    hasCompletedOnboarding = true
+                }
+            } label: {
+                Text("Continue")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(isPhoneNumberValid ? Color.blue : Color.gray) // Use theme colors if available
+                    .cornerRadius(10)
+            }
+            .disabled(!isPhoneNumberValid)
+            .padding(.horizontal, 40)
+            .padding(.bottom, 50) // Add padding at the bottom
+        }
+        .background(Color.white.edgesIgnoringSafeArea(.all)) // Simple white background
+    }
+}
+
+// Helper extension for corner radius
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
+// --- Main TabView Structure ---
+struct MainTabView: View {
+    var body: some View {
             TabView {
                 // Tab 1: Subscriptions
                 SubscriptionsView()
@@ -66,7 +351,6 @@ struct ContentView: View {
             }
             // Optional: Adjust TabView appearance
             // .tint(.red) // Example: Set the tint color for selected tab items
-        }
     }
 }
 

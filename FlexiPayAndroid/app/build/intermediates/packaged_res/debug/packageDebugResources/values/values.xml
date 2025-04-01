@@ -12,6 +12,13 @@
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">FlexiPay</string>
     <style name="Theme.FlexiPay" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item> 
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+    <style name="Theme.FlexiPay.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_previous</item>
+        <item name="postSplashScreenTheme">@style/Theme.FlexiPay</item>
     </style>
 </resources>

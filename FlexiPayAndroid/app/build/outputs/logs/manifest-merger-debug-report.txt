@@ -48,6 +48,7 @@ MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] /Users/sebastiandeloren
 MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/9ec80282627ab019acb8891b30596983/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/da9b5d668f738531f728e5ba6880ee79/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.runtime:runtime-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/30655804451c64761051338b5c8e67f1/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/0ea869b7c436b7c324e838ad49905473/transformed/core-splashscreen-1.0.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/53845a2b479e4ee1fcd18444e21f1391/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/9bbce1ee1d1d047304a7cc68bffcbe0b/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/c7bc35dfb30792e4f75281a1d0853f9e/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -56,6 +57,7 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] /Users/sebastiand
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/0df879dd134928d8312716a3aca2a891/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/363ddbd69b2d80bec600fad88cc86d29/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
 	package
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:4:5-35
 		INJECTED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml
@@ -66,12 +68,12 @@ MERGED from [androidx.tracing:tracing:1.0.0] /Users/sebastiandelorenzo/.gradle/c
 	xmlns:android
 		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:5:5-67
+ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:6:5-67
 	android:name
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:5:22-64
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:6:22-64
 application
-ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:7:5-29:19
-INJECTED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:7:5-29:19
+ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:8:5-29:19
+INJECTED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:8:5-29:19
 MERGED from [androidx.compose.ui:ui-tooling-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/702f0a476fbeb0015affdde4a0f80249/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.compose.ui:ui-tooling-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/702f0a476fbeb0015affdde4a0f80249/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/447c03d8d7fcbf723e61e40ce0acd965/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
@@ -93,35 +95,33 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/sebastiandelorenzo/.
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/904173a43c6008b3db952ee6ef7a5619/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:14:9-35
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:15:9-35
 	android:label
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:12:9-41
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:13:9-41
 	android:fullBackupContent
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:10:9-54
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:11:9-54
 	android:roundIcon
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:13:9-54
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:14:9-54
 	tools:targetApi
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:17:9-29
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:18:9-29
 	android:icon
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:11:9-43
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:12:9-43
 	android:allowBackup
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:8:9-35
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:15:9-46
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:16:9-46
 	android:dataExtractionRules
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:9:9-65
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:10:9-65
 	android:usesCleartextTraffic
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:16:9-44
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:17:9-44
 activity#com.example.flexipay.MainActivity
-ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:19:9-28:20
-	android:label
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:22:13-45
+ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:20:9-28:20
 	android:exported
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:21:13-36
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:22:13-36
 	android:theme
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:23:13-50
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:23:13-57
 	android:name
-		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:20:13-41
+		ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:21:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from /Users/sebastiandelorenzo/Desktop/FlexiPayMasterfile/FlexiPayAndroid/app/src/main/AndroidManifest.xml:24:13-27:29
 action#android.intent.action.MAIN
@@ -224,6 +224,8 @@ MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.3] /Users/seb
 MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/da9b5d668f738531f728e5ba6880ee79/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.runtime:runtime-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/30655804451c64761051338b5c8e67f1/transformed/runtime-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.runtime:runtime-android:1.6.3] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/30655804451c64761051338b5c8e67f1/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/0ea869b7c436b7c324e838ad49905473/transformed/core-splashscreen-1.0.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core-splashscreen:1.0.1] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/0ea869b7c436b7c324e838ad49905473/transformed/core-splashscreen-1.0.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/53845a2b479e4ee1fcd18444e21f1391/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/53845a2b479e4ee1fcd18444e21f1391/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/sebastiandelorenzo/.gradle/caches/8.10/transforms/9bbce1ee1d1d047304a7cc68bffcbe0b/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
